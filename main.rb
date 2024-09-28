@@ -1,4 +1,5 @@
 require_relative 'event'
+require_relative 'organizer_actions'
 
 @events = []
 
@@ -19,38 +20,7 @@ loop do
   end
 
   if role == "organizer"
-    loop do
-      puts "----------------"
-      puts "What do you want to do?"
-      puts "Create event(1)"
-      puts "Back(B)"
-  
-      user_input = gets.chomp
-  
-      if user_input == "1"
-        puts "----------------"
-        puts "Enter event name"
-
-        event_name = gets.chomp
-
-        puts "----------------"
-        puts "Enter organizer name"
-
-        organizer_name = gets.chomp
-
-        event = Event.new(organizer: organizer_name, name: event_name)
-        @events << event
-
-        puts "Event created: #{event.name} by #{event.organizer}"
-        
-      elsif user_input == "B"
-        break
-      else
-        next
-      end
-  
-      puts @events
-    end
+    @events = OrganizerActions.new(@events).navigation
   end
 
   if role == "participant"
