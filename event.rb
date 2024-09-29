@@ -11,10 +11,11 @@ class Event
   end
 
   def add_participant(participant)
-    if @participiants.size >= @participants_limit
-      raise ParticipantLimitReachedError #, "Participant limit of #{@participant_limit} reached."
+    if @participiants.size >= @participants_limit.to_i
+      raise ParticipantLimitReachedError
+    else
+      @participiants << participant
     end
-    @participiants << participant
   end
 
   attr_reader :organizer, :name, :participiants, :participants_limit

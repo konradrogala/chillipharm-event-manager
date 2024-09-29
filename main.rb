@@ -24,8 +24,5 @@ loop do
   end
 
   @events = OrganizerActions.new(@events).navigation if role == 'organizer'
-
   @events = ParticipantActions.new(@events).navigation if role == 'participant'
-
-  puts "Hello, #{role}!"
 end

@@ -81,10 +81,15 @@ class ParticipantActions
       puts 'Enter your name'
 
       participant_name = gets.chomp
+      choosen_event = @existed_events[user_input.to_i - 1]
 
-      @existed_events[user_input.to_i - 1].participiants << participant_name
+      begin
+        choosen_event.add_participant(participant_name)
 
-      puts "You have registered to event: #{@existed_events[user_input.to_i - 1]}"
+        puts "You have registered to event: #{choosen_event.name} by #{choosen_event.organizer}"
+      rescue Event::ParticipantLimitReachedError
+        puts 'Participant limit reached'
+      end
     else
       puts 'Event not found'
     end
