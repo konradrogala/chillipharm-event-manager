@@ -41,10 +41,15 @@ class OrganizerActions
 
     organizer_name = gets.chomp
 
-    event = Event.new(organizer: organizer_name, name: event_name)
+    puts '----------------'
+    puts 'Enter participants_limit:'
+
+    participants_limit = gets.chomp
+
+    event = Event.new(organizer: organizer_name, name: event_name, participants_limit: participants_limit)
     @existed_events << event
 
-    puts "Event created: #{event.name} by #{event.organizer}"
+    puts "Event created: #{event.name} by #{event.organizer}, max participants: #{event.participants_limit}"
   end
 
   def show_all_events
@@ -54,7 +59,7 @@ class OrganizerActions
       puts 'No events'
     else
       @existed_events.each_with_index do |event, index|
-        puts "(#{index + 1}) #{event.name} by #{event.organizer}"
+        puts "(#{index + 1}) #{event.name} by #{event.organizer}, max participants: #{event.participants_limit}"
       end
     end
   end
@@ -71,10 +76,11 @@ class OrganizerActions
       user_input = gets.chomp
 
       if user_input.to_i.between?(1, @existed_events.size)
+        choosen_event = @existed_events[user_input.to_i - 1]
         puts '----------------'
-        puts "Participants of event: #{@existed_events[user_input.to_i - 1].name}"
+        puts "Participants of event: #{choosen_event.name}, max participants: #{choosen_event.participants_limit}"
 
-        @existed_events[user_input.to_i - 1].participiants.each_with_index do |participant, index|
+        choosen_event.participiants.each_with_index do |participant, index|
           puts "(#{index + 1}) #{participant}"
         end
       else
