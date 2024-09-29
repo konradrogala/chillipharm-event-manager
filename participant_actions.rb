@@ -1,6 +1,9 @@
 # frozen_string_literal: true
+require_relative 'event_operations'
 
 class ParticipantActions
+  include EventOperations
+
   def initialize(existed_events)
     @existed_events = existed_events
   end
@@ -29,18 +32,6 @@ class ParticipantActions
   end
 
   private
-
-  def show_all_events
-    puts '----------------'
-
-    if @existed_events.empty?
-      puts 'No events'
-    else
-      @existed_events.each_with_index do |event, index|
-        puts "(#{index + 1}) #{event.name} by #{event.organizer}"
-      end
-    end
-  end
 
   def show_my_events
     puts '----------------'      
