@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require_relative 'base'
 
 module UserActions
@@ -25,7 +26,7 @@ module UserActions
     end
 
     def show_my_events
-      puts '----------------'      
+      puts '----------------'
 
       if @existed_events.empty?
         puts 'No events'
@@ -38,11 +39,10 @@ module UserActions
           event.participiants.include?(participant_name)
         end
 
+        puts '----------------'
         if participant_events.empty?
-          puts '----------------'
           puts 'You dont have any events'
         else
-          puts '----------------'
           participant_events.each_with_index do |event, index|
             puts "(#{index + 1}) #{event.name} by #{event.organizer}"
           end
@@ -51,29 +51,34 @@ module UserActions
     end
 
     def register_to_event
-      show_all_events
-
-      puts '----------------'
-      puts "Enter event number to register (1-#{@existed_events.size})"
-
-      user_input = gets.chomp
-
-      if user_input.to_i.between?(1, @existed_events.size)
+      if @existed_events.empty?
         puts '----------------'
-        puts 'Enter your name'
-
-        participant_name = gets.chomp
-        choosen_event = @existed_events[user_input.to_i - 1]
-
-        begin
-          choosen_event.add_participant(participant_name)
-
-          puts "You have registered to event: #{choosen_event.name} by #{choosen_event.organizer}"
-        rescue Event::ParticipantLimitReachedError
-          puts 'Participant limit reached'
-        end
+        puts 'No events'
       else
-        puts 'Event not found'
+        show_all_events
+
+        puts '----------------'
+        puts "Enter event number to register (1-#{@existed_events.size})"
+
+        user_input = gets.chomp
+
+        if user_input.to_i.between?(1, @existed_events.size)
+          puts '----------------'
+          puts 'Enter your name'
+
+          participant_name = gets.chomp
+          choosen_event = @existed_events[user_input.to_i - 1]
+
+          begin
+            choosen_event.add_participant(participant_name)
+
+            puts "You have registered to event: #{choosen_event.name} by #{choosen_event.organizer}"
+          rescue Event::ParticipantLimitReachedError
+            puts 'Participant limit reached'
+          end
+        else
+          puts 'Event not found'
+        end
       end
     end
   end

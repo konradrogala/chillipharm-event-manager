@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module EventOperations
   def show_all_events
     puts '----------------'
