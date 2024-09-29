@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OrganizerActions
   def initialize(existed_events)
     @existed_events = existed_events
@@ -5,20 +7,20 @@ class OrganizerActions
 
   def navigation
     loop do
-      puts "----------------"
-      puts "What do you want to do?"
-      puts "Create event(1)"
-      puts "Show all events(2)"
-      puts "Show participants(3)"
-      puts "Back(B)"
-  
+      puts '----------------'
+      puts 'What do you want to do?'
+      puts 'Create event(1)'
+      puts 'Show all events(2)'
+      puts 'Show participants(3)'
+      puts 'Back(B)'
+
       user_input = gets.chomp
 
       case user_input
-      when "1" then create_event
-      when "2" then show_all_events
-      when "3" then show_participants
-      when "B" then break
+      when '1' then create_event
+      when '2' then show_all_events
+      when '3' then show_participants
+      when 'B' then break
       else next
       end
     end
@@ -29,13 +31,13 @@ class OrganizerActions
   private
 
   def create_event
-    puts "----------------"
-    puts "Enter event name:"
+    puts '----------------'
+    puts 'Enter event name:'
 
     event_name = gets.chomp
 
-    puts "----------------"
-    puts "Enter organizer name:"
+    puts '----------------'
+    puts 'Enter organizer name:'
 
     organizer_name = gets.chomp
 
@@ -46,21 +48,21 @@ class OrganizerActions
   end
 
   def show_all_events
-    puts "----------------"
+    puts '----------------'
 
-    if @existed_events.empty? 
-      puts "No events"
+    if @existed_events.empty?
+      puts 'No events'
     else
       @existed_events.each_with_index do |event, index|
-        puts "(#{index + 1}) #{event.name} by #{event.organizer}" 
+        puts "(#{index + 1}) #{event.name} by #{event.organizer}"
       end
     end
   end
 
   def show_participants
     if @existed_events.empty?
-      puts "----------------"
-      puts "No events"
+      puts '----------------'
+      puts 'No events'
     else
       show_all_events
 
@@ -69,14 +71,14 @@ class OrganizerActions
       user_input = gets.chomp
 
       if user_input.to_i.between?(1, @existed_events.size)
-        puts "----------------"
+        puts '----------------'
         puts "Participants of event: #{@existed_events[user_input.to_i - 1].name}"
 
         @existed_events[user_input.to_i - 1].participiants.each_with_index do |participant, index|
           puts "(#{index + 1}) #{participant}"
         end
       else
-        puts "Event not found"
+        puts 'Event not found'
       end
     end
   end

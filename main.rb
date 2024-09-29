@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'event'
 require_relative 'organizer_actions'
 require_relative 'participant_actions'
@@ -5,28 +7,25 @@ require_relative 'participant_actions'
 @events = []
 
 loop do
-  puts "----------------"
-  puts "Are you participant(1) or organizer(2), exit(Q)?"
-  
+  puts '----------------'
+  puts 'Are you participant(1) or organizer(2), exit(Q)?'
+
   user_input = gets.chomp
 
-  if user_input == "Q"
+  case user_input
+  when 'Q'
     break
-  elsif user_input == "1"
-    role = "participant"
-  elsif user_input == "2"
-    role = "organizer"
+  when '1'
+    role = 'participant'
+  when '2'
+    role = 'organizer'
   else
-    role = "guest"
+    role = 'guest'
   end
 
-  if role == "organizer"
-    @events = OrganizerActions.new(@events).navigation
-  end
+  @events = OrganizerActions.new(@events).navigation if role == 'organizer'
 
-  if role == "participant"
-    @events = ParticipantActions.new(@events).navigation
-  end
+  @events = ParticipantActions.new(@events).navigation if role == 'participant'
 
   puts "Hello, #{role}!"
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Event
   def initialize(organizer:, name:, participiants: [])
     @organizer = organizer
