@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require_relative 'event'
-require_relative 'organizer_actions'
-require_relative 'participant_actions'
+require_relative 'user_actions/organizer'
+require_relative 'user_actions/participant'
 
 @events = []
 
@@ -23,6 +23,6 @@ loop do
     role = 'guest'
   end
 
-  @events = OrganizerActions.new(@events).navigation if role == 'organizer'
-  @events = ParticipantActions.new(@events).navigation if role == 'participant'
+  @events = ::UserActions::Organizer.new(@events).navigation if role == 'organizer'
+  @events = ::UserActions::Participant.new(@events).navigation if role == 'participant'
 end
